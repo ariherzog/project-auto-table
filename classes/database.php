@@ -1,11 +1,11 @@
 <?php
     class DATABASE {
 
-        private static $server = "localhost";
+        private static $server   = "localhost";
         private static $username = "root";
         private static $password = "";
-        public static $database = "";
-        public static $table = "";
+        public  static $database = "";
+        public  static $table    = "";
 
         private static function connectSQL() {
             return new mysqli(self::$server, self::$username, self::$password, self::$database);
