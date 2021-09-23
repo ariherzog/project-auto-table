@@ -64,7 +64,6 @@
             $conn = self::connectSQL();
             $conn->query($sql);
             $conn->close();
-                
         }
 
         public static function DELETE($table, $id) {
