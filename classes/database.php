@@ -8,7 +8,13 @@
         public  static $table    = "";
 
         private static function connectSQL() {
-            return new mysqli(self::$server, self::$username, self::$password, self::$database);
+            $mysqli = new mysqli(self::$server, self::$username, self::$password, self::$database);
+            if ($mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                exit();
+            } else {
+                return $mysqli;
+            }
         }
 
         public static function INIT_TABLE($database, $table) {
@@ -32,7 +38,6 @@
         } 
 
         public static function GET_TABLE($order) {
-        // echo "in GET_TABLE, table=" . self::$table ."<br>";
             $table = self::$table;
             if ($order != "") {
                 return self::QUERY("SELECT * FROM $table ORDER BY $order");
@@ -56,10 +61,10 @@
             for($i=0; $i<count($fields); $i++) $sql .= "$fields[$i]='$values[$i]',";
             $sql = trim($sql,',');
             $sql .= " WHERE id=$id";
-            //echo $sql;
             $conn = self::connectSQL();
             $conn->query($sql);
             $conn->close();
+                
         }
 
         public static function DELETE($table, $id) {
@@ -69,17 +74,6 @@
             $conn->query($sql);
             $conn->close();
         }
-
-        public static function COMMAND($sql) {
-            $conn = self::connectSQL();
-            $conn->query($sql);
-            $conn->close();
-        }
-
-        public static function web_print_r($arr) {
-            echo "<pre>";
-            print_r($arr);
-            echo "</pre>";
-        }
     }
+
 ?>

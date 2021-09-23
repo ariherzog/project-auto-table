@@ -24,7 +24,7 @@
                 "customers", 
                 // table columns 
                 [
-                "first"  => ["name"=>"שם פרטי",  "style" => "width:100px; background-color:yellow; color:red", "type"=>"text", "placeholder"=>"הזן שם פרטי" ],
+                "first"  => ["name"=>"שם פרטי",  "style" => "width:100px;", "type"=>"text", "placeholder"=>"הזן שם פרטי" ],
                 "last"    => ["name"=>"שם משפחה", "style" => "width:100px; border-color:green", "type"=>"text", "placeholder"=>"הזן שם משפחה"],
                 "phone"   => ["name"=>"טלפון",   "style" => "width:100px;", "type"=>"tel","placeholder"=>"הזן טלפון"],
                 "email"   => ["name"=>"איימיל",  "style" => "width:160px;", "type"=>"email", "placeholder"=>"הזן כתובת אימייל"],

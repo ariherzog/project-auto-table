@@ -42,8 +42,8 @@
                 switch ($action) {
                     case "update" : $this->updateField(); break;
                     case "delete" : $id_delete = $id;     break;
-                    case "add"    : $add = $add ;      break;
-                    case "order"  : $orderby = $orderby;    break;
+                    case "add"    : $add = $add ;         break;
+                    case "order"  : $orderby = $orderby;  break;
                     case "search" : $condition =  $this->getCondition($search, $id); break;
                 }
             }
@@ -134,7 +134,7 @@
                 foreach ($row as $key => $value) {
                     if (in_array($key, $keys)) {
                         isset($row['id'])  ? $id = $row['id'] : "";
-                        
+
                         // create rows style or select default 
                         isset($fields[$key]['style']) ? $style = $fields[$key]['style'] : $style = "'width:130px'";
                         echo "<td style='$style'>";
