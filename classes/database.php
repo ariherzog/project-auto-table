@@ -10,7 +10,7 @@
         private static function connectSQL() {
             $mysqli = new mysqli(self::$server, self::$username, self::$password, self::$database);
             if ($mysqli -> connect_errno) {
-                echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                echo _DB_CONNECTION_FAILED;
                 exit();
             } else {
                 return $mysqli;
@@ -48,12 +48,17 @@
 
         public static function INSERT($table, $fields, $values) {
             $sql = "INSERT INTO $table (" . implode(',',$fields) . ") VALUES ('" . implode("','",$values) . "')";
-            echo $sql;
             $conn = self::connectSQL();
             $conn->query($sql);
-            $id = $conn->insert_id;
-            $conn->close();
-            return $id;
+            if(!$conn->query($sql)) {
+                echo _INSERT_FAILED;
+                exit();
+            }else{
+                $id = $conn->insert_id;
+                $conn->close();
+                echo _SUCCESS;
+                return $id;
+            }
         }
 
         public static function UPDATE($table, $fields, $values, $id) {
@@ -63,7 +68,13 @@
             $sql .= " WHERE id=$id";
             $conn = self::connectSQL();
             $conn->query($sql);
-            $conn->close();
+            if(!$conn->query($sql)) {
+                echo _UPDATE_FAILED;
+                exit();
+            } else {
+                $conn->close();
+                echo _SUCCESS;
+            }
         }
 
         public static function DELETE($table, $id) {
@@ -71,8 +82,21 @@
             $sql = "DELETE FROM $table WHERE id=$id";
             echo "$sql<hr>";
             $conn->query($sql);
-            $conn->close();
+            if(!$conn->query($sql)) {
+                echo _DELETE_FAILED;
+                exit();
+            } else {
+                $conn->close();
+                echo _SUCCESS;
+            }
         }
     }
+
+    const _SUCCESS  = "הפעולה בוצעה בהצלחה\n";
+    const _CONNECTION_FAILED = '<script>alert("שלום משתמש! \nאין חיבור לרשת האינטרנט")</script>';
+    const _DB_CONNECTION_FAILED = '<script>alert("שלום משתמש!\n אירעה שגיאה בחיבור למסד הנתונים")</script>';
+    const _UPDATE_FAILED = '<script>alert("שלום משתמש!\nחלה שגיאה- עדכון הנתונים לא בוצע")</script>';
+    const _DELETE_FAILED = '<script>alert("שלום משתמש! \nחלה שגיאה- מחיקת הנתונים לא בוצעה")</script>';
+    const _INSERT_FAILED = '<script>alert("שלום משתמש! \nחלה שגיאה- יצירת שורה חדשה נכשלה")</script>';
 
 ?>
