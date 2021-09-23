@@ -10,7 +10,6 @@
             height: 40px;
         }
     </style>
-
 </head>
 <body>
     <?php
